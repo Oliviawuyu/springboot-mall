@@ -1,11 +1,16 @@
 package com.oliviawu.springbootmall.modal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 
 public class User {
 
     private Integer UserId;
     private String email;
+
+    @JsonIgnore
     private String password;
     private Date createdDate;
     private Date lastModifiedDate;
