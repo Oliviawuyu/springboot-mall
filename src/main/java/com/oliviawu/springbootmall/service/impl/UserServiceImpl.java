@@ -1,6 +1,7 @@
 package com.oliviawu.springbootmall.service.impl;
 
 import com.oliviawu.springbootmall.dao.UserDao;
+import com.oliviawu.springbootmall.dto.UserLoginRequest;
 import com.oliviawu.springbootmall.dto.UserRegisterRequest;
 import com.oliviawu.springbootmall.modal.User;
 import com.oliviawu.springbootmall.service.UserService;
@@ -34,6 +35,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Integer userId) {
         return userDao.getUserById(userId);
+    }
+
+    @Override
+    public User login(UserLoginRequest userLoginRequest) {
+        User user = userDao.getUserByEmail(userLoginRequest.getEmail());
+
+        if(user==null){
+            log.warn("The e-mail: {} not registered.",userLoginRequest.getEmail());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);//400
+        }
+        if(user.getPassword().equals(userLoginRequest.getPassword())){
+            return user;
+        }else {
+            log.warn("The password is not correct.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);//400
+        }
+
+
     }
 
 

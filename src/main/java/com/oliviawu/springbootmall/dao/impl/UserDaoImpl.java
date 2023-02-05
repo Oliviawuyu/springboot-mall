@@ -1,6 +1,7 @@
 package com.oliviawu.springbootmall.dao.impl;
 
 import com.oliviawu.springbootmall.dao.UserDao;
+import com.oliviawu.springbootmall.dto.UserLoginRequest;
 import com.oliviawu.springbootmall.dto.UserRegisterRequest;
 import com.oliviawu.springbootmall.modal.Product;
 import com.oliviawu.springbootmall.modal.User;
