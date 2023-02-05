@@ -1,0 +1,19 @@
+package com.oliviawu.springbootmall.service.impl;
+
+import com.oliviawu.springbootmall.dao.ProductDao;
+import com.oliviawu.springbootmall.modal.Product;
+import com.oliviawu.springbootmall.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ProductServiceImpl implements ProductService {
+
+    @Autowired
+    private ProductDao productDao;
+
+    @Override
+    public Product getProductById(Integer productId) {
+        return productDao.getProductById(productId);
+    }
+}
