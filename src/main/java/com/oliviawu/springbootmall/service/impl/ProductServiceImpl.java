@@ -1,5 +1,6 @@
 package com.oliviawu.springbootmall.service.impl;
 
+import com.oliviawu.springbootmall.constant.ProductCategory;
 import com.oliviawu.springbootmall.dao.ProductDao;
 import com.oliviawu.springbootmall.dto.ProductRequest;
 import com.oliviawu.springbootmall.modal.Product;
@@ -15,9 +16,11 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductDao productDao;
 
+
+
     @Override
-    public List<Product> getProducts() {
-        return productDao.getProducts();
+    public List<Product> getProducts(ProductCategory category,String search) {
+        return productDao.getProducts(category,search);
     }
 
     @Override

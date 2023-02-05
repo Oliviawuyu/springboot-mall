@@ -1,5 +1,6 @@
 package com.oliviawu.springbootmall.controller;
 
+import com.oliviawu.springbootmall.constant.ProductCategory;
 import com.oliviawu.springbootmall.dto.ProductRequest;
 import com.oliviawu.springbootmall.modal.Product;
 import com.oliviawu.springbootmall.service.ProductService;
@@ -19,9 +20,12 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getProducts(){
-        List<Product> productList = productService.getProducts();
-
+    public ResponseEntity<List<Product>> getProducts(
+            @RequestParam(required = false) ProductCategory category,
+            @RequestParam(required = false) String search
+    ){
+        List<Product> productList = productService.getProducts(category,search);
+        System.out.println("productList"+productList);
         return ResponseEntity.status(HttpStatus.OK).body(productList);//沒商品也要ＯＫ
 
     }
