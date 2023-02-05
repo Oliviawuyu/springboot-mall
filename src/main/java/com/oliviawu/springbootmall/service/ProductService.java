@@ -1,6 +1,7 @@
 package com.oliviawu.springbootmall.service;
 
 import com.oliviawu.springbootmall.constant.ProductCategory;
+import com.oliviawu.springbootmall.dto.ProductQueryParams;
 import com.oliviawu.springbootmall.dto.ProductRequest;
 import com.oliviawu.springbootmall.modal.Product;
 
@@ -9,7 +10,7 @@ import java.util.List;
 public interface ProductService {
 
 
-    List<Product>  getProducts(ProductCategory category,String search);
+    List<Product>  getProducts(ProductQueryParams productQueryParams);
     Product getProductById(Integer id);
 
     Integer createProduct(ProductRequest productRequest);

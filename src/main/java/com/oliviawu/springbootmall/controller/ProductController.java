@@ -1,6 +1,7 @@
 package com.oliviawu.springbootmall.controller;
 
 import com.oliviawu.springbootmall.constant.ProductCategory;
+import com.oliviawu.springbootmall.dto.ProductQueryParams;
 import com.oliviawu.springbootmall.dto.ProductRequest;
 import com.oliviawu.springbootmall.modal.Product;
 import com.oliviawu.springbootmall.service.ProductService;
@@ -24,7 +25,11 @@ public class ProductController {
             @RequestParam(required = false) ProductCategory category,
             @RequestParam(required = false) String search
     ){
-        List<Product> productList = productService.getProducts(category,search);
+        ProductQueryParams productQueryParams = new ProductQueryParams();
+        productQueryParams.setCategory(category);
+        productQueryParams.setSearch(search);
+
+        List<Product> productList = productService.getProducts(productQueryParams);
         System.out.println("productList"+productList);
         return ResponseEntity.status(HttpStatus.OK).body(productList);//沒商品也要ＯＫ
 
