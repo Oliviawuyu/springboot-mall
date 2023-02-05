@@ -42,5 +42,25 @@ public class ProductController {
 
     }
 
+    @PutMapping("/products/{productId}")
+    public ResponseEntity<Product> updateProduct(@PathVariable Integer productId ,
+                                                 @RequestBody @Valid ProductRequest productRequest){
+        //記得要加@Valid 這樣在ProductRequest裡設定的NotNull才會真的生效
+
+        //檢查
+        Product product = productService.getProductById(productId);
+        if(product==null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        //修改
+        productService.updateProduct(productId,productRequest);
+
+        Product updatedProduct = productService.getProductById(productId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(updatedProduct);
+
+    }
+
 
 }
