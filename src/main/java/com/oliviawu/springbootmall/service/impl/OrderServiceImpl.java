@@ -4,6 +4,7 @@ import com.oliviawu.springbootmall.dao.OrderDao;
 import com.oliviawu.springbootmall.dao.ProductDao;
 import com.oliviawu.springbootmall.dto.BuyItem;
 import com.oliviawu.springbootmall.dto.CreateOrderRequest;
+import com.oliviawu.springbootmall.modal.Order;
 import com.oliviawu.springbootmall.modal.OrderItem;
 import com.oliviawu.springbootmall.modal.Product;
 import com.oliviawu.springbootmall.service.OrderService;
@@ -52,5 +53,18 @@ public class OrderServiceImpl implements OrderService {
 
         return orderId;
 
+    }
+
+    @Override
+    public Order getOrderById(Integer orderId) {
+
+        Order order = orderDao.getOrderById(orderId);
+
+        List<OrderItem> orderItemList = orderDao.getOrderItemsByOrderId(orderId);
+
+
+        order.setOrderItemList(orderItemList);
+
+        return order;
     }
 }

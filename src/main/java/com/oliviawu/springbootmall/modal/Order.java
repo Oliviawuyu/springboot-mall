@@ -1,6 +1,7 @@
 package com.oliviawu.springbootmall.modal;
 
 import java.util.Date;
+import java.util.List;
 
 public class Order {
 
@@ -8,6 +9,10 @@ public class Order {
     private Integer userId ;
     private Integer totalAmount;
     private Date createdDate ;
+    private Date lastModifiedDate ;
+
+
+    private List<OrderItem> orderItemList;
 
     public Integer getOrderId() {
         return orderId;
@@ -49,7 +54,6 @@ public class Order {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    private Date lastModifiedDate ;
 
 //    private Integer order_item_id;
 //    private Integer order_id ;
@@ -58,4 +62,11 @@ public class Order {
 //    private Integer amount ;
 
 
+    public List<OrderItem> getOrderItemList() {
+        return orderItemList;
+    }
+
+    public void setOrderItemList(List<OrderItem> orderItemList) {
+        this.orderItemList = orderItemList;
+    }
 }
