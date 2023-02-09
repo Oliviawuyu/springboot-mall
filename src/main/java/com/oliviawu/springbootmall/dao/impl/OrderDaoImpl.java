@@ -1,6 +1,8 @@
 package com.oliviawu.springbootmall.dao.impl;
 
 import com.oliviawu.springbootmall.dao.OrderDao;
+import com.oliviawu.springbootmall.dto.OrderQueryParams;
+import com.oliviawu.springbootmall.dto.ProductQueryParams;
 import com.oliviawu.springbootmall.modal.Order;
 import com.oliviawu.springbootmall.modal.OrderItem;
 import com.oliviawu.springbootmall.modal.Product;
@@ -26,6 +28,47 @@ public class OrderDaoImpl implements OrderDao {
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+
+    @Override
+    public List<Order> getOrders(OrderQueryParams orderQueryParams) {
+        String sql="SELECT order_id,user_id ,total_amount,created_date, last_modified_date FROM `order` " +
+                "where 1=1";
+        Map<String,Object> map = new HashMap<>();
+
+        //查詢條件
+        sql=addFillteringSql(sql,map,orderQueryParams);
+
+        //排序
+        sql=sql+" ORDER BY created_date DESC";
+
+        //分頁
+        sql=sql+" LIMIT :limit OFFSET :offset"; //要在order by 後面
+        map.put("limit",orderQueryParams.getLimit());
+        map.put("offset",orderQueryParams.getOffset());
+
+
+        List<Order> OrderList = namedParameterJdbcTemplate.query(sql,map,new OrderRowMapper());
+
+        return OrderList;
+    }
+    private String addFillteringSql(String sql, Map<String,Object> map, OrderQueryParams orderQueryParams){
+
+        if(orderQueryParams.getUserId()!=null){
+            sql=sql+" AND user_id =:userId";
+            map.put("userId",orderQueryParams.getUserId());
+        }
+        return sql;
+    }
+
+    @Override
+    public Integer countOrder(OrderQueryParams orderQueryParams) {
+        String sql="SELECT count(*) FROM `order` where 1=1";
+        Map<String,Object> map = new HashMap<>();
+        //查詢條件
+        sql=addFillteringSql(sql,map,orderQueryParams);
+        Integer total = namedParameterJdbcTemplate.queryForObject(sql,map,Integer.class);
+        return total;
+    }
 
     @Override
     public Integer createOrder(Integer userId, Integer totalAmount) {
